@@ -11,20 +11,9 @@ const getInterns = asyncHandler(async (req, res) => {
     }
 });
 
-
-const denyAdminMiddleware = (req, res, next) => {
-    const { name } = req.body;
-
-    if (name && name.toLowerCase() === 'admin') {
-        return res.status(400).json({ error: 'Entries with the name "admin" are not allowed.' });
-    }
-
-    next();
-};
-
 //@desc create intern
 //@route POST /api/intern
-const createIntern = asyncHandler(denyAdminMiddleware, async (req, res) => {
+const createIntern = asyncHandler(async (req, res) => {
     console.log("The data", req.body);
     const { name, address, dob, selectionStatus } = req.body;
     if (!name || !address || !dob || !selectionStatus) {
